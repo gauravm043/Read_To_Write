@@ -1,0 +1,19 @@
+var iterations = 4;
+var dir = [90, 0, 270, 180];
+var where = 0;
+var input = [1, 1, 1, 4, 1];
+
+while (iterations > 0){ 
+    iterations = iterations - 1;
+    for(var turn = 0; turn < 5; turn++){
+        cxt.beginPath();
+        cxt.moveTo (Xcenter , Ycenter);
+        Xcenter = Xcenter + input[turn]* unit* Math.cos(this.toRadians(dir[where]));
+        Ycenter = Ycenter - input[turn]* unit* Math.sin(this.toRadians(dir[where]));
+        cxt.lineTo (Xcenter , Ycenter);
+        cxt.strokeStyle = "#00ff00";
+        cxt.lineWidth = 3;
+        cxt.stroke();
+        where = (where + 1)%4;
+    }   
+}

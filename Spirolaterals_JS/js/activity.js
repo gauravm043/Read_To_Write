@@ -17,6 +17,32 @@ define(function (require) {
         Spirolaterals_JS.prototype.start = function () {
             this.draw_problem("left-canvas");
             this.initial_solution("right-canvas");
+            this.initial_code("coding-area");
+        }
+
+        Spirolaterals_JS.prototype.initial_code = function (element_id) {
+            // Initial code will depend on current level
+            var file = "level1";
+            var ans = this.read_file(file,element_id); 
+        }
+        
+        Spirolaterals_JS.prototype.read_file = function (file,element_id) {
+            var rawFile = new XMLHttpRequest();
+            var display_area = document.getElementById(element_id);
+            rawFile.open("GET", file, true);
+            rawFile.responseType = "text"
+            
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        display_area.value = rawFile.responseText;
+                    }
+                }
+            }
+            rawFile.send(null);
         }
 
         Spirolaterals_JS.prototype.draw = function (element_id, input) {
@@ -58,7 +84,7 @@ define(function (require) {
             console.log(this.input);
             this.draw(element_id, this.input);
         }
-        
+
         Spirolaterals_JS.prototype.initial_solution = function (element_id) {
             var c = document.getElementById(element_id);
             var dir = [90, 0, 270, 180];
@@ -70,30 +96,31 @@ define(function (require) {
         }
 
         Spirolaterals_JS.prototype.draw_solution = function (element_id) {
-            // Retrieving User solution
-            this.solution[0] = parseInt(document.getElementById("input1").value, 10);
-            this.solution[1] = parseInt(document.getElementById("input2").value, 10);
-            this.solution[2] = parseInt(document.getElementById("input3").value, 10);
-            this.solution[3] = parseInt(document.getElementById("input4").value, 10);
-            this.solution[4] = parseInt(document.getElementById("input5").value, 10);
+            var c = document.getElementById(element_id);
+            var cxt = c.getContext("2d");
+            var unit = c.height*0.12;
+            Xcenter = c.width/2;
+            Ycenter = c.height * 0.8;
+            cxt.clearRect(0, 0, c.width, c.height);
+            this.draw_turtle(cxt, Xcenter, Ycenter);
             
-            var board = document.getElementById("right-canvas");
-            var context = board.getContext("2d");
-            context.clearRect(0, 0, board.width, board.height);
-            
-            this.draw(element_id, this.solution);
+            var ans = document.getElementById("coding-area").value;
+            eval(ans);
 
             // Checking the correctness of solution
-            flag = 1;
-            for (var i=0; i<5; i++)
-            {
-                if (this.solution[i] != this.input[i])
-                    flag = 0;
+            var correct = 1;
+            for (var i=0; i<5; i++){
+                if (input[i] != this.input[i])
+                    correct = 0;
             }
-            if(flag)
-                console.log("Yes\n");
+            if (correct == 1)
+            {
+                console.log("Yes");
+            }
             else
-                console.log("No\n");
+            {
+                console.log("No");
+            }
 
         }
 
@@ -104,7 +131,7 @@ define(function (require) {
             }
             img.src = "./turtle.svg";
         }
-
+        
         Spirolaterals_JS.prototype.toRadians = function (angle) {
             return angle * (Math.PI / 180);
         }
@@ -117,37 +144,13 @@ define(function (require) {
             document.getElementById(button_id).value = num;
         }
 
+
         // Create the Spirolaterals_JS.
 
         var Spirolaterals_JS = new Spirolaterals_JS();
         Spirolaterals_JS.start();
 
         // UI controls.
-
-        var Input1 = document.getElementById("input1");
-        Input1.onclick = function () {
-            Spirolaterals_JS.add("input1");
-        };
-
-        var Input2 = document.getElementById("input2");
-        Input2.onclick = function () {
-            Spirolaterals_JS.add("input2");
-        };
-
-        var Input3 = document.getElementById("input3");
-        Input3.onclick = function () {
-            Spirolaterals_JS.add("input3");
-        };
-
-        var Input4 = document.getElementById("input4");
-        Input4.onclick = function () {
-            Spirolaterals_JS.add("input4");
-        };
-
-        var Input5 = document.getElementById("input5");
-        Input5.onclick = function () {
-            Spirolaterals_JS.add("input5");
-        };
 
         var Play = document.getElementById("play-button");
         Play.onclick = function () {

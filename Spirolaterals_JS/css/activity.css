@@ -1,8 +1,20 @@
+#coding-area {
+    border-radius: 10px;
+    color: black;
+    background-color: skyblue;
+    font-size: 16px;
+    position: absolute;
+    top: 500px;
+    left: 295px;
+    width: 750px;
+    height: 200px;
+}
+
 #left-canvas {
     border-radius: 15px;
     position: absolute;
     top: 30px;
-    left: 250px;
+    left: 300px;
     background-color: black;
 }
 
@@ -12,37 +24,6 @@
     top: 30px;
     left: 700px;
     background-color: black;
-}
-
-#input1 {
-    position: absolute;
-    border-radius: 15px;
-    right: 500px;
-    top: 500px;
-}
-#input2 {
-    position: absolute;
-    border-radius: 15px;
-    right: 450px;
-    top: 500px;
-}
-#input3 {
-    position: absolute;
-    border-radius: 15px;
-    right: 400px;
-    top: 500px;
-}
-#input4 {
-    position: absolute;
-    border-radius: 15px;
-    right: 350px;
-    top: 500px;
-}
-#input5 {
-    position: absolute;
-    border-radius: 15px;
-    right: 300px;
-    top: 500px;
 }
 
 #main-toolbar #activity-button {
